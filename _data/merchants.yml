@@ -35,8 +35,6 @@
       url: https://cryptodiggers.eu/
     - name: DV Chain (OTC) - Cryptocurrency OTC desk that offers buying and selling of Monero
       url: https://dvchain.co
-    - name: EnterChange
-      url: https://enter-change.com
     - name: ExchangeD.I2P - Darknet exchange (I2P)
       url: http://www.exchanged.i2p/en/home
     - name: Exolix - Crypto Exchange Secure & Anonymous
@@ -69,8 +67,6 @@
       url: https://magneticexchange.com
     - name: MorphToken
       url: https://www.morphtoken.com/
-    - name: Newton - Canadian cryptocurrency exchange
-      url: https://newton.co
     - name: Pay2day.top (Ru) - Buy and sell cryptocurrency
       url: https://pay2day.top
     - name: Poloniex
