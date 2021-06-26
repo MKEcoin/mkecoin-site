@@ -1,0 +1,181 @@
+{% include disclaimer.html translated="yes" translationOutdated="no" %}
+
+Vor dem Extrahieren, Installieren oder Nutzen der MKEcoin-Software sollten die MKEcoin-Binärdateien verifiziert werden, da du nur so sichergehen kannst, dass du tatsächlich die offiziellen Binärdateien von MKEcoin verwendest. Solltest du (bspw. durch Phishing, eine MITM-Attacke etc.) eine gefälschte Binärdatei erhalten haben, wird dich das Befolgen dieser Anleitung davor schützen, zum Gebrauch der falschen Dateien verleitet zu werden.
+
+Das Team von MKEcoin bietet zum Schutz der Integrität dieser Binärdateien eine kryptografisch signierte Liste aller [SHA256](https://de.wikipedia.org/wiki/SHA-2)-Hashwerte. Sollte deine heruntergeladene Binärdatei manipuliert worden sein, wird sie einen [Hashwert](https://en.wikipedia.org/wiki/File_verification) produzieren, welcher von dem in der Datei enthaltenen Wert abweicht.
+
+Dies ist eine fortgeschrittene Anleitung für Linux-, Mac- oder Windows-Betriebssysteme und macht Gebrauch von der Befehlszeile. Sie begleitet dich durch den gesamten Prozess: die Installation der erforderlichen Software, den Import des Signaturschlüssels, den Download der notwendigen Dateien und schließlich die Verifikation der Echtheit deiner Binärdatei.
+
+## Inhaltsverzeichnis:
+
+### [1. GnuPG installieren](#1-gnupg-installieren)
+### [2. Verifikation und Import des Signaturschlüssels](#2-verifikation-und-import-des-signaturschlüssels)
+  + [2.1. Signaturschlüssel herunterladen](#21-signaturschlüssel-herunterladen)
+  + [2.2. Signaturschlüssel verifizieren](#22-signaturschlüssel-verifizieren)
+  + [2.3. Signaturschlüssel importieren](#23-signaturschlüssel-importieren)
+### [3. Download und Verifikation der Hash-Datei](#3-download-und-verifikation-der-hash-datei)
+  + [3.1. Hash-Datei herunterladen](#31-hash-datei-herunterladen)
+  + [3.2. Hash-Datei verifizieren](#32-hash-datei-verifizieren)
+### [4. Download und Verifikation der Binärdatei](#4-download-und-verifikation-der-binärdatei)
+  + [4.1. MKEcoin-Binärdatei herunterladen](#41-MKEcoin-binärdatei-herunterladen)
+  + [4.2. Verifikation der Binärdatei auf Linux oder Mac](#42-verifikation-der-binärdatei-auf-linux-oder-mac)
+  + [4.3. Verifikation der Binärdatei auf Windows](#43-verifikation-der-binärdatei-auf-windows)
+
+## 1. GnuPG installieren
+
++ Auf Windows: Besuche die [Download-Seite von Gpg4win](https://gpg4win.org/download.html) und folge der Installationsanleitung.
+
++ Auf Mac: Besuche die [Download-Seite von Gpgtools](https://gpgtools.org/) und folge der Installationsanleitung.
+
++ Auf Linux: GnuPG ist bereits vorinstalliert.
+
+## 2. Verifikation und Import des Signaturschlüssels
+
+Dieser Abschnitt behandelt den Erhalt des MKEcoin-Signaturschlüssels, dessen Verifikation und den Import zu GnuPG.
+
+### 2.1. Signaturschlüssel herunterladen
+
+Auf Windows oder Mac: Besuche [binaryFates GPG-Schlüssel](https://raw.githubusercontent.com/MKEcoin-project/MKEcoin/master/utils/gpg_keys/binaryfate.asc), den er zur Signatur der MKEcoin-Binärdateien verwendet, und speichere die Seite als `binaryfate.asc` in deinem "Home"-Verzeichnis.
+
+Auf Linux: Du kannst binaryFates Signaturschlüssel durch das Erteilen folgenden Befehls herunterladen: 
+
+```
+wget -O binaryfate.asc https://raw.githubusercontent.com/MKEcoin-project/MKEcoin/master/utils/gpg_keys/binaryfate.asc
+```
+
+### 2.2. Signaturschlüssel verifizieren
+
+Auf allen Betriebssystemen: Überprüfe den Fingerabdruck von `binaryfate.asc` durch die Eingabe folgenden Befehls in ein Terminal:
+
+```
+gpg --keyid-format long --with-fingerprint binaryfate.asc
+```
+
+
+Überprüfe die Übereinstimmung der Fingerabdrücke:
+
+```
+pub   rsa4096/F0AF4D462A0BDF92 2019-12-12 [SCEA]
+      Key fingerprint = 81AC 591F E9C4 B65C 5806  AFC3 F0AF 4D46 2A0B DF92
+uid                           binaryFate <binaryfate@getMKEcoin.org>
+```
+
+Wenn die Fingerabdrücke **ÜBEREINSTIMMEN**, kannst du fortfahren.
+
+Wenn die Fingerabdrücke **NICHT ÜBEREINSTIMMEN**, **FAHRE NICHT FORT**. Lösche die `binaryfate.asc`-Datei und gehe zurück zum [Abschnitt 2.1](#21-signaturschlüssel-herunterladen).
+
+### 2.3. Signaturschlüssel importieren
+
+Importiere den Signaturschlüssel unter Gebrauch eines Terminals:
+
+```
+gpg --import binaryfate.asc
+```
+
+Falls dies das erste Mal ist, dass du den Schlüssel importiert hast, wird der Output wie folgt aussehen:
+
+```
+gpg: key F0AF4D462A0BDF92: 2 signatures not checked due to missing keys
+gpg: key F0AF4D462A0BDF92: public key "binaryFate <binaryfate@getMKEcoin.org>" imported
+gpg: Total number processed: 1
+gpg:               imported: 1
+gpg: marginals needed: 3  completes needed: 1  trust model: pgp
+```
+
+Falls du den Schlüssel zuvor bereits importiert hast, wird der Output folgendermaßen aussehen:
+
+```
+gpg: key F0AF4D462A0BDF92: "binaryFate <binaryfate@getMKEcoin.org>" not changed
+gpg: Total number processed: 1
+gpg:              unchanged: 1
+```
+
+## 3. Download und Verifikation der Hash-Datei
+
+Der folgende Abschnitt behandelt den Download und die Echtheitsverifizierung der Hash-Datei.
+
+### 3.1. Hash-Datei herunterladen
+
+Auf Windows oder Mac: Gehe zur [Hashes-Datei auf getMKEcoin.org]({{ site.baseurl_root }}/downloads/hashes.txt) und speichere die Seite unter `hashes.txt` in deinem "Home"-Verzeichnis.
+
+Auf Linux: Du kannst die signierte Hash-Datei durch Eingabe des folgenden Befehls herunterladen:
+
+```
+wget -O hashes.txt https://www.getMKEcoin.org/downloads/hashes.txt
+```
+
+### 3.2. Hash-Datei verifizieren
+
+Die Hash-Datei ist, wie im unten angezeigten Output, mit dem Schlüssel `81AC 591F E9C4 B65C 5806  AFC3 F0AF 4D46 2A0B DF92` signiert.
+
+Auf allen Betriebssystemen: Verifiziere die Signatur der Hash-Datei durch Eingabe folgenden Befehls in ein Terminal:
+
+```
+gpg --verify hashes.txt
+```
+
+Wenn die Datei echt ist, wird der Output wie folgt aussehen:
+
+```
+gpg:                using RSA key 81AC591FE9C4B65C5806AFC3F0AF4D462A0BDF92
+gpg: Good signature from "binaryFate <binaryfate@getMKEcoin.org>" [unknown]
+gpg: WARNING: This key is not certified with a trusted signature!
+gpg:          There is no indication that the signature belongs to the owner.
+Primary key fingerprint: 81AC 591F E9C4 B65C 5806  AFC3 F0AF 4D46 2A0B DF92
+```
+
+Zeigt dein Output wie im Beispiel **Good signature** an, kannst du fortfahren.
+
+Wenn es **BAD signature** ausgibt, **FAHRE NICHT FORT**. Lösche die `hashes.txt`-Datei und gehe zurück zum [Abschnitt 3.1](#31-hash-datei-herunterladen).
+
+## 4. Download und Verifikation der Binärdatei
+
+Dieser Abschnitt behandelt den Download der MKEcoin-Binärdatei für dein Betriebssystem, den Erhalt des `SHA256`-Hashs deines Downloads und dessen Echtheitsverifizierung.
+
+### 4.1. MKEcoin-Binärdatei herunterladen
+
+Auf Windows oder Mac: Besuche die [getMKEcoin.org-Seite]({{ site.baseurl_root }}/downloads/) und lade die für dein Betriebssystem passende Datei herunter. Speichere diese Datei in deinem "Home"-Verzeichnis. **Extrahiere die Dateien noch nicht.**
+
+Auf Linux: Du kannst die Befehlszeilen-Tools durch die Eingabe folgenden Befehls herunterladen:
+
+```
+wget -O MKEcoin-linux-x64-v0.15.0.1.tar.bz2 https://downloads.getMKEcoin.org/cli/linux64
+```
+
+### 4.2. Verifikation der Binärdatei auf Linux oder Mac
+
+Für Linux und Mac sind diese Schritte dieselben. Erhalte durch ein Terminal den `SHA256`-Hashwert deiner heruntergeladenen MKEcoin-Binärdatei. Als Beispiel wird in dieser Anleitung die `Linux, 64bit`-Binärdatei des GUIs verwendet. Ersetze `MKEcoin-gui-linux-x64-v0.15.0.1.tar.bz2` durch den Namen der von dir in [Abschnitt 4.1](#41-MKEcoin-binärdatei-herunterladen) heruntergeladenen Binärdatei.
+
+```
+shasum -a 256 MKEcoin-linux-x64-v0.15.0.1.tar.bz2
+```
+
+Der Output wird für jede Binärdatei unterschiedlich ausfallen, jedoch in etwa wie folgt aussehen. Dein `SHA256`-Hashwert sollte mit einem der in der `hashes.txt`-Datei deiner Binärdatei aufgelisteten Hashwerte übereinstimmen.
+
+```
+8d61f992a7e2dbc3d753470b4928b5bb9134ea14cf6f2973ba11d1600c0ce9ad  MKEcoin-linux-x64-v0.15.0.1.tar.bz2
+```
+
+Wenn dein Hashwert mit einem der aufgelisteten **ÜBEREINSTIMMT**, bist du mit dieser Anleitung fertig! Du kannst die Dateien nun extrahieren und installieren.
+
+Wenn dein Hashwert **NICHT** mit einem der gelisteten **ÜBEREINSTIMMT**, **FAHRE NICHT FORT**. Lösche die von dir heruntergeladene Binärdatei und gehe zurück zum [Abschnitt 4.1](#41-MKEcoin-binärdatei-herunterladen).
+
+### 4.3. Verifikation der Binärdatei auf Windows
+
+Erhalte durch ein Terminal den `SHA256`-Hashwert deiner heruntergeladenen MKEcoin-Binärdatei. Als Beispiel nutzt diese Anleitung die `Windows, 64bit`-Binärdatei des GUIs. Ersetze `MKEcoin-gui-win-x64-v0.15.0.1.zip` durch den Namen der von dir in [Abschnitt 4.1](#41-MKEcoin-binärdatei-herunterladen) heruntergeladenen Binärdatei.
+
+```
+certUtil -hashfile MKEcoin-gui-win-x64-v0.15.0.1.zip SHA256
+```
+
+Der Output wird für jede Binärdatei unterschiedlich ausfallen, jedoch in etwa wie folgt aussehen. Dein `SHA256`-Hashwert sollte mit einem der in der `hashes.txt`-Datei deiner Binärdatei aufgelisteten Hashwerte übereinstimmen.
+
+```
+SHA256 hash of file MKEcoin-gui-win-x64-v0.12.0.0.zip:
+4b 9f 31 68 6e ca ad 97 cd b1 75 e6 57 4b f3 07 f8 d1 c4 10 42 78 25 f4 30 4c 21 da 8a ac 18 64
+CertUtil: -hashfile command completed successfully.
+```
+
+Wenn dein Hashwert mit einem der aufgelisteten **ÜBEREINSTIMMT**, bist du mit dieser Anleitung fertig! Du kannst die Dateien nun extrahieren und installieren.
+
+Wenn dein Hashwert **NICHT** mit einem der gelisteten **ÜBEREINSTIMMT**, **FAHRE NICHT FORT**. Lösche die von dir heruntergeladene Binärdatei und gehe zurück zum [Abschnitt 4.1](#41-MKEcoin-binärdatei-herunterladen).
