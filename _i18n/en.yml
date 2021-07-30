@@ -39,6 +39,7 @@ titles:
   developerguides: Developer Guides
   technicalspecs: Technical Specs
   themoneroproject: The Monero Project
+  tools: Tools
   presskit: Press Kit
   legal: Legal
   blogbytag: Blog
@@ -234,11 +235,6 @@ downloads:
   showhash2: and should be treated as canonical, with the signature checked against the appropriate GPG key
   showhash3: in the source code
   showhash4: "Two guides are available to guide you through the verification process:"
-  hardware1: The Monero community has funded a
-  hardware2: Dedicated Hardware Wallet (Kastelo)
-  hardware3: which is now in progress.
-  hardware4: Ledger Nano S and Nano X are supported in Monero CLI, Monero GUI, and Monerujo wallets.
-  hardware5: Trezor Model T is supported in Monero CLI and Monero GUI wallets.
   mobilelight1: The following are mobile or light wallets that are deemed safe by respected members of the community. If there is a wallet that is not on here, you can request the community check it out. Go to our
   mobilelight2: Hangouts
   mobilelight3:  page to see where we are.
@@ -253,10 +249,19 @@ downloads:
   desktop: Desktop
   antivirus: Antivirus
   sourcearchive: Source Code (archive)
+  hwdesc: "Hardware wallets are cryptographically secure devices that help keep your coins safe. Monero is currently supported by Ledger Nano S/X and Trezor Model T."
+  hwth: Hardware Wallet
+  hwthmodel: Model(s)
+  hwthsupported: Wallets
+  hwthfirm: Min. firmware version
+  hwnanos: "Nano S: 1.6.1"
+  hwnanox: "Nano X: 1.2.4-4"
+  hwtrezor: "2.3.4"
+  hwmobmodels: "Models that support Monero:"
 
 press-kit:
-  intro1: Here you'll find the Monero symbol and logo below. You can choose any size that you want, or download the .ai file to mess with the logo yourself.
-  intro2: Note that the white background options have a white background under the Monero symbol ONLY, not as a background to the whole image.
+  intro: On this page you'll find press contacts, symbols and logos.
+  intro2: Note that the white background options have a white background under the Monero symbol only, not as a background to the whole image.
   intro3: Lastly, you can download everything on this page in one zip file by clicking
   intro4: here.
   noback: No background
@@ -281,6 +286,18 @@ press-kit:
   promographicsp: Various graphics and Badges created by TheMonera, for both merchants and simple enthusiasts.
   othersymbols: Other symbols and logos
   mrllogo_para: The logo of the Monero Research Lab in SVG format.
+  contacts: Contacts
+  contactsp: There are multiple ways to contact the community. Depending by what information you are looking for, you might want to contact a workgroup, single members of the community, or the Core Team.
+  contactgen: "For press inquiries:"
+  contactwg: "To contact a specific Monero workgroup:"
+  contactcomm: "To contact the many subcommunities:"
+  whymonero: Why Monero?
+  whycommunity: Monero has one of the largest communities of any open-source project. Monero researches, audits, and implements critical security and privacy technologies, which are user by millions worldwide.
+  whycommunity1: Monero is trusted for more private transactions than all other cryptocurrencies combined.
+  whyconf: The Monero community has substantial involvement at Defcon, Grayhat and the CCC (Chaos Computer Club). The Monero Konferenco, an academic conference, is hosted annually.
+  whyconf1: We encourage everyone to include community members from the largest privacy project in related news articles and events.
+  altpk-1: Picture of a woman standing in front of a 'Monero Talk' banner
+  altpk-2: Picture of fluffypony making a presentation in front of a crowd at DEFCON
   
 accepting:
   title_gui: Instructions for the GUI
@@ -814,7 +831,6 @@ library:
     <li>Details of the Monero decentralized network, peer-to-peer architecture, transaction lifecycle, and security principles.</li>
     <li>Introductions to technical foundations of Monero, intended for developers, engineers, software architects, and curious users.</li>
     <li>New developments such as Kovri, Bulletproofs, Multisignature, Hardware Wallets, etc.</li></ul>
-    See <a href="https://masteringmonero.com/">Mastering Monero</a> website for information.
   cheatsheets: Cheatsheets
   moneroaddressescheatsheet20201206: "Monero Addresses Cheatsheet"
   moneroaddressescheatsheet20201206p: >
@@ -887,6 +903,30 @@ moneropedia:
     viewkey: View Key
     wallet: Wallet
     clsag: CLSAG
+
+tools:
+  intro1: Below is a list of third-party tools for interacting with the Monero ecosystem. <b>These tools are not vetted by the Getmonero team, see the disclaimer at the bottom of this page.</b> If a tool no longer supports Monero or you would like a Monero tool to be listed, please
+  intro2: open a GitHub issue and let us know
+  block-explorers: Block Explorers
+  address-generators: Address Generators
+
+  network: Network
+  monerohash-nodes: Monero node map
+  localmonero-blocks: Explorer and Statistics
+  nownodes: node APIs
+  getblockio: Blockchain nodes provider
+  monerofail: Monero node list and node map
+
+  market: Market
+  backtestking: Build or buy your own trading strategy/bot.
+  cryptofacile: Compare crypto prices from the best crypto exchanges
+  cryptoradar: Marketplace comparison website
+  kryptocheck: German marketplace comparison website
+
+  misc: Miscellaneous
+  monerohow-stats: Statistics
+  moneropro: Charts and metrics
+  monerobase: Archive of some older meeting logs
 
 blog:
   allposts: All Posts

@@ -228,10 +228,17 @@ out. This takes 60 blocks (approx. 2 hours).
 
 ## Getting Help
 
+<<<<<<< HEAD
 An active MKEcoin mining community on Reddit is
 [/r/MKEcoinSupport](https://www.reddit.com/r/MKEcoinSupport/). You can
 also join [#MKEcoin-pools on
 freenode](https://webchat.freenode.net/?channel=#MKEcoin-pools).
+=======
+An active Monero mining community on Reddit is
+[/r/MoneroSupport](https://www.reddit.com/r/MoneroSupport/). You can
+also join [#monero-pools on
+Libera](https://web.libera.chat/?channel=#monero-pools) or Matrix (#monero-pools:monero.social).
+>>>>>>> 63106d60778f14544f214b8f776eedb6695cf16e
 
 ## Going Futher
 
